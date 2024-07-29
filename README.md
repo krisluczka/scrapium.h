@@ -1,1 +1,16 @@
+<img src="https://github.com/krisluczka/scrapium.h/blob/master/logo.png" height="100px"/>
+
 # scrapium.h
+The simplest C++ library to scrap data from the Web.
+
+```cpp
+#include "scrapium.h"
+
+int main() {
+    scrapium::contents content = scrapium::scrap( "example.com", "/", "<a", "a>");
+
+    content.print( scrapium::print_type::JSON );
+}
+```
+
+One command to rule them all.
