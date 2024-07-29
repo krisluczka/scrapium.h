@@ -2,11 +2,10 @@
 #include "scrapium.h"
 
 int main() {
-    std::string host = "example.com";
-    std::string path = "/";
-    std::string response = getHTTPResponse( host, path );
+    scrapium::contents content;
+    content = scrapium::scrap( "wierszespodtaboreta.pl", "/", "<a", "a>");
 
-    std::cout << response;
+    content.print( scrapium::print_type::JSON );
 
     return 0;
 }
