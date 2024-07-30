@@ -57,64 +57,7 @@ namespace scrapium {
     }
 #elif defined(__linux__)
     std::string http_emulate( const std::string& url ) {
-        int sockfd;
-        struct addrinfo hints, * res, * p;
-        std::string response;
-        int status;
-        char recvbuf[512];
-        ssize_t bytes_received;
-        const int recvbuflen = sizeof( recvbuf );
-
-        // resolving the server and address port
-        memset( &hints, 0, sizeof hints );
-        hints.ai_family = AF_INET;
-        hints.ai_socktype = SOCK_STREAM;
-
-        if ( (status = getaddrinfo( url.c_str(), "80", &hints, &res )) != 0 ) {
-            std::cerr << "getaddrinfo error: " << gai_strerror( status ) << std::endl;
-            return "";
-        }
-
-        // creating a socket
-        sockfd = socket( res->ai_family, res->ai_socktype, res->ai_protocol );
-        if ( sockfd == -1 ) {
-            std::cerr << "socket creation failed: " << strerror( errno ) << std::endl;
-            freeaddrinfo( res );
-            return "";
-        }
-
-        // connecting to a server
-        if ( connect( sockfd, res->ai_addr, res->ai_addrlen ) == -1 ) {
-            std::cerr << "connection failed: " << strerror( errno ) << std::endl;
-            close( sockfd );
-            freeaddrinfo( res );
-            return "";
-        }
-
-        freeaddrinfo( res );
-
-        // HTTP get
-        std::string request = "GET " + "/" + " HTTP/1.1\r\nurl: " + url + "\r\nConnection: close\r\n\r\n";
-        if ( send( sockfd, request.c_str(), request.length(), 0 ) == -1 ) {
-            std::cerr << "send failed: " << strerror( errno ) << std::endl;
-            close( sockfd );
-            return "";
-        }
-
-        // receiving
-        response.clear();
-        while ( (bytes_received = recv( sockfd, recvbuf, recvbuflen, 0 )) > 0 ) {
-            response.append( recvbuf, bytes_received );
-        }
-
-        if ( bytes_received == -1 ) {
-            std::cerr << "recv failed: " << strerror( errno ) << std::endl;
-        }
-
-        // cleaning up
-        close( sockfd );
-
-        return response;
+        return http_get( url, "/" );
     }
 #else
     std::string http_emulate( const std::string& url ) {

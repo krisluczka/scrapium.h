@@ -109,10 +109,10 @@ namespace scrapium {
 #elif defined(__linux__)
     std::string http_get( const std::string& host, const std::string& path ) {
         int sockfd;
-        struct addrinfo hints, * res, * p;
+        struct addrinfo hints, * res;
         std::string response;
         int status;
-        char recvbuf[512];
+        char recvbuf[4096];
         ssize_t bytes_received;
         const int recvbuflen = sizeof( recvbuf );
 
@@ -154,7 +154,8 @@ namespace scrapium {
 
         // receiving
         response.clear();
-        while ( (bytes_received = recv( sockfd, recvbuf, recvbuflen, 0 )) > 0 ) {
+        while ( (bytes_received = recv( sockfd, recvbuf, recvbuflen - 1, 0 )) > 0 ) {
+            recvbuf[bytes_received] = '\0';
             response.append( recvbuf, bytes_received );
         }
 
