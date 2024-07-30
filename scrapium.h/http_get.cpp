@@ -167,5 +167,9 @@ namespace scrapium {
 
         return response;
     }
+#else
+    std::string http_get( const std::string& host, const std::string& path ) {
+        return "Unsupported OS";
+    }
 #endif
 }

@@ -7,7 +7,7 @@ The simplest C++ library to scrape data from the Web.
 #include "scrapium.h"
 
 int main() {
-    scrapium::contents content = scrapium::scrape( "example.com", "/", "<a", "a>");
+    scrapium::contents content = scrapium::scrape( "https://www.example.com/", "a");
 
     content.print( scrapium::print_type::JSON );
 }

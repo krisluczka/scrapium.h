@@ -116,5 +116,9 @@ namespace scrapium {
 
         return response;
     }
+#else
+    std::string http_emulate( const std::string& url ) {
+        return "Unsupported OS";
+    }
 #endif
 }
