@@ -11,7 +11,8 @@ namespace scrapium {
 	enum print_type {
 		NONE,
 		RAW,
-		JSON
+		JSON,
+		XML
 	};
 
 	class contents {
