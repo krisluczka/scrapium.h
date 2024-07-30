@@ -15,8 +15,8 @@ namespace scrapium {
 	};
 
 	class contents {
-		friend contents scrape( const std::string&, const std::string&, const std::string&, const std::string& );
-		friend contents scrape( const std::string&, const std::string&, const std::string& );
+		friend contents scrape( const std::string&, const std::string&, const std::string&, bool );
+		friend contents scrape( const std::string&, const std::string&, bool );
 		public:
 			void print( print_type type = print_type::RAW );
 
@@ -24,10 +24,11 @@ namespace scrapium {
 			std::vector<std::string> contents;
 	};
 
-	std::string http_get( const std::string&, const std::string& );
+	std::string http_get( const std::string& url, const std::string& path );
+	std::string http_emulate( const std::string& url );
 
-	contents scrape( const std::string& host, const std::string& path, const std::string& start, const std::string& end );
-	contents scrape( const std::string& host, const std::string& path, const std::string& html_tag );
+	contents scrape( const std::string& url, const std::string& start, const std::string& end, bool fast = false );
+	contents scrape( const std::string& url, const std::string& html_tag, bool fast = false );
 }
 
 #endif

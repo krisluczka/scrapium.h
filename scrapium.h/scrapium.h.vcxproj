@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="contents.cpp" />
+    <ClCompile Include="http_emulate.cpp" />
     <ClCompile Include="http_get.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scrap.cpp" />
