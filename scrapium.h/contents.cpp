@@ -83,6 +83,46 @@ namespace scrapium {
 			}
 
 			std::cout << "</contents>";
+		} else if ( type == PHP ) {
+			std::string result;
+			uint_fast64_t i( 0 );
+
+			std::cout << "a:" << contents.size() << ":{";
+			for ( std::string s : contents ) {
+				result = "";
+				for ( char c : s ) {
+					switch ( c ) {
+						case '\"':
+							result += "\\\"";
+							break;
+						case '\'':
+							result += "\\\'";
+							break;
+						case '\b':
+							result += "\\b";
+							break;
+						case '\f':
+							result += "\\f";
+							break;
+						case '\n':
+							result += "\\n";
+							break;
+						case '\r':
+							result += "\\r";
+							break;
+						case '\t':
+							result += "\\t";
+							break;
+						default:
+							result += c;
+							break;
+					}
+				}
+
+				std::cout << "i:" << i << ";s:" << result.size() << ":\"" << result << "\";";
+				++i;
+			}
+			std::cout << "}";
 		}
 	}
 }

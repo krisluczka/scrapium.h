@@ -177,7 +177,9 @@ int main() {
                         <li><code>scrapium::print_type::RAW</code> - will display every line separated by a newline character</li>
                         <li><code>scrapium::print_type::JSON</code> - will display results in a JSON format</li>
                         <li><code>scrapium::print_type::XML</code> - will display results in a XML format</li>
+                        <li><code>scrapium::print_type::PHP</code> - will display results in a PHP serialization format</li>
                     </ul>
+                    <p>The PHP format have an issue with counting up the true length of a string when it comes to non-ascii characters.</p>
                 </section>
                 <section id="development-plans">
                     <h1>Development plans</h1>
@@ -185,7 +187,7 @@ int main() {
                     <ul>
                         <li><code>scrape</code> should take HTML tags properties/attributes into account</li>
                         <li>Saving scraped data to files</li>
-                        <li>YAML and PHP serialization format support</li>
+                        <li>YAML serialization format support</li>
                     </ul>
                 </section>
                 <section id="contributors">

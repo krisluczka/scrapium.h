@@ -2,7 +2,7 @@
 #include "scrapium.h"
 
 int main() {
-    scrapium::contents content = scrapium::scrape( "https://www.onet.pl/", "a" );
+    scrapium::contents content = scrapium::scrape( "https://www.example.com/", "p" );
 
-    content.print( scrapium::print_type::JSON );
+    content.print( scrapium::print_type::PHP );
 }

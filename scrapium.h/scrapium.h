@@ -12,7 +12,8 @@ namespace scrapium {
 		NONE,
 		RAW,
 		JSON,
-		XML
+		XML,
+		PHP,
 	};
 
 	class contents {
