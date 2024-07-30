@@ -123,6 +123,10 @@ namespace scrapium {
 				++i;
 			}
 			std::cout << "}";
+		} else if ( type == YAML ) {
+			std::cout << "contents:\n";
+			for ( std::string s : contents )
+				std::cout << " - \'" << s << "\'\n";
 		}
 	}
 }

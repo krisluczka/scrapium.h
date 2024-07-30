@@ -14,6 +14,7 @@ namespace scrapium {
 		JSON,
 		XML,
 		PHP,
+		YAML
 	};
 
 	class contents {
