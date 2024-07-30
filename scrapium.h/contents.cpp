@@ -1,15 +1,20 @@
 #include "scrapium.h"
 
 namespace scrapium {
-	void contents::print( print_type type ){
+	void contents::print( print_type type, const std::string& path ){
+		std::ofstream file( path );
+
 		if ( type == RAW ) {
 			for ( std::string s : contents )
-				std::cout << s << "\n";
+				if ( path == "" ) std::cout << s << "\n";
+				else			  file << s << "\n";
 		} else if ( type == JSON ) {
 			std::string result;
 			uint_fast64_t i( 0 );
 
-			std::cout << "{\n";
+			if ( path == "" ) std::cout << "{\n";
+			else			  file << "{\n";
+			
 			for ( std::string s : contents ) {
 				result = "";
 				for ( char c : s ) {
@@ -44,15 +49,18 @@ namespace scrapium {
 					}
 				}
 
-				std::cout << "\t\"" << i << "\": \"" << result << "\",\n";
+				if ( path == "" ) std::cout << "\t\"" << i << "\": \"" << result << "\",\n";
+				else			  file << "\t\"" << i << "\": \"" << result << "\",\n";
 				++i;
 			}
-			std::cout << "}";
+
+			if ( path == "" ) std::cout << "}";
+			else			  file << "}";
 		} else if ( type == XML ) {
 			std::string result;
 
-			std::cout << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-			std::cout << "<contents>\n";
+			if ( path == "" ) std::cout << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<contents>\n";
+			else			  file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<contents>\n";
 
 			for ( std::string s : contents ) {
 				result = "";
@@ -79,15 +87,20 @@ namespace scrapium {
 					}
 				}
 
-				std::cout << "\t<element>" << result << "</element>\n";
+				if ( path == "" ) std::cout << "\t<element>" << result << "</element>\n";
+				else			  file << "\t<element>" << result << "</element>\n";
+
 			}
 
-			std::cout << "</contents>";
+			if ( path == "" ) std::cout << "</contents>";
+			else			  file << "</contents>";
 		} else if ( type == PHP ) {
 			std::string result;
 			uint_fast64_t i( 0 );
 
-			std::cout << "a:" << contents.size() << ":{";
+			if ( path == "" ) std::cout << "a:" << contents.size() << ":{";
+			else			  file << "a:" << contents.size() << ":{";
+
 			for ( std::string s : contents ) {
 				result = "";
 				for ( char c : s ) {
@@ -119,14 +132,22 @@ namespace scrapium {
 					}
 				}
 
-				std::cout << "i:" << i << ";s:" << result.size() << ":\"" << result << "\";";
+				if ( path == "" ) std::cout << "i:" << i << ";s:" << result.size() << ":\"" << result << "\";";
+				else			  file << "i:" << i << ";s:" << result.size() << ":\"" << result << "\";";
 				++i;
 			}
-			std::cout << "}";
+
+			if ( path == "" ) std::cout << "}";
+			else			  file << "}";
 		} else if ( type == YAML ) {
-			std::cout << "contents:\n";
+			if ( path == "" ) std::cout << "contents:\n";
+			else			  file << "contents:\n";
+			
 			for ( std::string s : contents )
-				std::cout << " - \'" << s << "\'\n";
+				if ( path == "" ) std::cout << " - \'" << s << "\'\n";
+				else			  file << " - \'" << s << "\'\n";
 		}
+
+		file.close();
 	}
 }

@@ -172,7 +172,7 @@ int main() {
                 </section>
                 <section id="results">
                     <h1>Results</h1>
-                    <p><code>scrapium::contents</code> class provides <code>print()</code> function with two view types:</p>
+                    <p><code>scrapium::contents</code> class provides <code>print()</code> function with given view types:</p>
                     <ul>
                         <li><code>scrapium::print_type::RAW</code> - will display every line separated by a newline character</li>
                         <li><code>scrapium::print_type::JSON</code> - will display results in a JSON format</li>
@@ -181,13 +181,15 @@ int main() {
                         <li><code>scrapium::print_type::YAML</code> - will display results in a YAML format</li>
                     </ul>
                     <p>The PHP format has an issue with counting up the true length of a string when it comes to non-ascii characters.</p>
+                    <h2>Saving results</h2>
+                    <p>To save a file, simply provide a path as its second argument.</p>
+<pre><code>content.print( scrapium::print_type::JSON, "example/path.json" );</code></pre>
                 </section>
                 <section id="development-plans">
                     <h1>Development plans</h1>
                     The list of features that are planned to be implemented until the full release of scrapium.h version 1:
                     <ul>
                         <li><code>scrape</code> should take HTML tags properties/attributes into account</li>
-                        <li>Saving scraped data to files</li>
                     </ul>
                 </section>
                 <section id="contributors">

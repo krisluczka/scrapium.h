@@ -6,6 +6,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <fstream>
 
 namespace scrapium {
 	enum print_type {
@@ -21,7 +22,7 @@ namespace scrapium {
 		friend contents scrape( const std::string&, const std::string&, const std::string&, bool );
 		friend contents scrape( const std::string&, const std::string&, bool );
 		public:
-			void print( print_type type = print_type::RAW );
+			void print( print_type type = print_type::RAW, const std::string& path = "" );
 
 		private:
 			std::vector<std::string> contents;
