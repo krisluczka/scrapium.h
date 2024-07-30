@@ -2,7 +2,7 @@
 #include "scrapium.h"
 
 int main() {
-    scrapium::contents content = scrapium::scrap( "example.com", "/", "<a", "a>");
+    scrapium::contents content = scrapium::scrape( "wierszespodtaboreta.pl", "/", "cite" );
 
     content.print( scrapium::print_type::JSON );
 }
