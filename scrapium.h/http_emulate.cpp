@@ -4,10 +4,9 @@
 #pragma comment(lib, "wininet.lib")
 
 namespace scrapium {
-
     std::string http_emulate( const std::string& url ) {
         // session opening
-        HINTERNET hInternet = InternetOpenA( "Mozilla/5.0", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0 );
+        HINTERNET hInternet = InternetOpenA( user_agent.c_str(), INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);
         if ( !hInternet ) {
             std::cerr << "The session wasn't started correctly." << std::endl;
             return "";

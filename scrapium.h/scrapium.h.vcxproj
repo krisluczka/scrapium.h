@@ -134,6 +134,7 @@
     <ClCompile Include="http_get.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scrape.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scrapium.h" />

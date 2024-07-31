@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>scrapium.h pre-release</title>
+        <title>scrapium.h library documentation</title>
         <style>
             body {
                 margin: 0;
@@ -98,6 +98,7 @@
                 <a href="#introduction"><div class="nav-button">Introduction</div></a>
                 <a href="#scraping"><div class="nav-button">Scraping</div></a>
                 <a href="#results"><div class="nav-button">Results</div></a>
+                <a href="#flags-and-properties"><div class="nav-button">Flags and properties</div></a>
                 <a href="#development-plans"><div class="nav-button">Development plans</div></a>
                 <a href="#contributors"><div class="nav-button">Contributors</div></a>
             </nav>
@@ -156,18 +157,6 @@ int main() {
     "3": "&lt;div class="button"&gt; &lt;cite&gt;Bańka&lt;/cite&gt;, Rafał Skałecki &lt;/div&gt;",
 }</code></pre>
                     <p>Note that it will <b>not</b> capture standalone tags.</p>
-                    <h2>Mode</h2>
-                    <p>
-                        By providing <code>false</code> (by default) as function's last parameter you use
-                        <code>scrape()</code> in normal mode. It will emulate a browser connection to download the
-                        loaded site. By providing <code>true</code>, the function enters a fast mode. It uses
-                        GET protocol to recieve info from the site, but the result is not always guaranteed.
-                    </p>
-                    <p>Note, that to use GET protocol (fast mode) you need to pass pure domain name (not in the URL form) and its path.</p>
-                    <ul>
-                        <li><code>example.com</code> - pure domain name</li>
-                        <li><code>https://www.example.com/</code> - URL form</li>
-                    </ul>
                 </section>
                 <section id="results">
                     <h1>Results</h1>
@@ -179,15 +168,41 @@ int main() {
                         <li><code>scrapium::print_type::PHP</code> - will display results in a PHP serialization format</li>
                         <li><code>scrapium::print_type::YAML</code> - will display results in a YAML format</li>
                     </ul>
-                    <h2>Mode</h2>
+                    <h2>Saving results</h2>
+                    <p>To save a file, simply provide a path as its second argument.</p>
+<pre><code>content.print( scrapium::print_type::JSON, "example/path.json" );</code></pre>
+                </section>
+                <section id="flags-and-properties">
+                    <h1>Flags and properties</h1>
+                    <h2>Unicode escaping</h2>
                     <p>
                         To ensure printing out correct results we can switch the <code>unicode_escape</code> flag, to convert unicode characters
                         to their <code>\uXXXX</code> form.
                     </p>
 <pre><code>scrapium::unicode_escape = true;</code></pre>
-                    <h2>Saving results</h2>
-                    <p>To save a file, simply provide a path as its second argument.</p>
-<pre><code>content.print( scrapium::print_type::JSON, "example/path.json" );</code></pre>
+                    <h2>Browser emulation</h2>
+                    <p>
+                        If we want to disable browser emulation and use pure GET protocol, we can switch the <code>browser_emulation</code> flag.
+                    </p>
+<pre><code>scrapium::browser_emulation = false;</code></pre>
+                    <p>
+                        By providing <code>true</code> (by default), function <code>scrape()</code> will emulate a browser connection
+                        to download the loaded site. By providing <code>false</code>, the function will use pure GET protocol.
+                        It might be significantly faster, although along with the inability to simulate sessions and cookies,
+                        some websites might block this way of raw downloading its contents.
+                    </p>
+                    <p>
+                        Note that if the <code>scrape()</code> function without browser emulation will encounter redirecting
+                        (HTTP 301 or HTTP 302) it will force browser emulation, slowing down the whole process.
+                        It is recommended not to change it, unless you have the proper knowledge.
+                    </p>
+                    <h2>User agent</h2>
+                    <p>
+                        We can change <code>user_agent</code> to ensure browser emulation will send proper data.
+                        By default it is set as:
+                    </p>
+<pre><code>scrapium::user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"</code></pre>
+                    <p>It is recommended not to change it, unless you have the proper knowledge.</p>
                 </section>
                 <section id="development-plans">
                     <h1>Development plans</h1>

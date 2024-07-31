@@ -4,7 +4,6 @@
 #pragma comment(lib, "ws2_32.lib")
 
 namespace scrapium {
-
     std::string http_get( const std::string& host, const std::string& path ) {
         WSADATA wsaData;
         SOCKET ConnectSocket( INVALID_SOCKET );
@@ -75,6 +74,16 @@ namespace scrapium {
             iResult = recv( ConnectSocket, recvbuf, recvbuflen, 0 );
             if ( iResult > 0 ) {
                 response.append( recvbuf, iResult );
+
+                size_t location_pos( response.find( "Location: " ) );
+                if ( location_pos != std::string::npos ) {
+                    size_t location_end = response.find( "\r\n", location_pos );
+                    if ( location_end != std::string::npos ) {
+                        std::string location_header( response.substr( location_pos, location_end - location_pos ) );
+                        std::string location_url( location_header.substr( 10 ) );
+                        return http_emulate( location_url );
+                    }
+                }
             } else if ( iResult == 0 ) {
                 break;
             } else {
