@@ -133,7 +133,7 @@
     <ClCompile Include="http_emulate.cpp" />
     <ClCompile Include="http_get.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="scrap.cpp" />
+    <ClCompile Include="scrape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scrapium.h" />

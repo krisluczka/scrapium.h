@@ -4,11 +4,14 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <iomanip>
 #include <algorithm>
 #include <vector>
 #include <fstream>
 
 namespace scrapium {
+	extern bool unicode_shift;
+
 	enum print_type {
 		NONE,
 		RAW,
@@ -30,6 +33,9 @@ namespace scrapium {
 
 	std::string http_get( const std::string& url, const std::string& path );
 	std::string http_emulate( const std::string& url );
+
+	std::string deunicode( char32_t unicode_char );
+	std::string deunicode_convert( const std::string& input );
 
 	contents scrape( const std::string& url, const std::string& start, const std::string& end, bool fast = false );
 	contents scrape( const std::string& url, const std::string& html_tag, bool fast = false );

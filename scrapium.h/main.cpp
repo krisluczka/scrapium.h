@@ -2,8 +2,7 @@
 #include "scrapium.h"
 
 int main() {
-    std::cout << scrapium::http_get( "wierszespodtaboreta.pl", "/" );
-    scrapium::contents content = scrapium::scrape( "https://www.google.com/", "p" );
+    scrapium::contents content = scrapium::scrape( "http://www.wierszespodtaboreta.pl/", "cite" );
 
-    content.print( scrapium::print_type::YAML );
+    content.print( scrapium::print_type::PHP );
 }

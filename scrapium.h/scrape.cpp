@@ -1,6 +1,46 @@
 #include "scrapium.h"
 
 namespace scrapium {
+    bool unicode_shift = false;
+
+    std::string deunicode( char32_t unicode_char ) {
+        std::stringstream ss;
+        ss << "\\u" << std::setfill( '0' ) << std::setw( 4 ) << std::hex << std::uppercase << static_cast<int>(unicode_char);
+        return ss.str();
+    }
+
+    std::string deunicode_convert( const std::string& input ) {
+        std::string result;
+        for ( size_t i( 0 ); i < input.length(); ++i ) {
+            unsigned char c( input[i] );
+            if ( c < 128 ) {
+                // if ascii we good
+                result += c;
+            } else {
+                // unicode escape
+                char32_t unicode_char( 0 );
+                uint_fast8_t bytes_to_read( 0 );
+
+                if ( (c & 0xE0) == 0xC0 ) {
+                    unicode_char = c & 0x1F;
+                    bytes_to_read = 1;
+                } else if ( (c & 0xF0) == 0xE0 ) {
+                    unicode_char = c & 0x0F;
+                    bytes_to_read = 2;
+                } else if ( (c & 0xF8) == 0xF0 ) {
+                    unicode_char = c & 0x07;
+                    bytes_to_read = 3;
+                }
+
+                for ( uint_fast8_t j( 0 ); j < bytes_to_read; ++j )
+                    unicode_char = (unicode_char << 6) | (input[++i] & 0x3F);
+
+                result += deunicode( unicode_char );
+            }
+        }
+        return result;
+    }
+
     contents scrape( const std::string& url, const std::string& start, const std::string& end, bool fast ) {
         size_t start_pos( 0 );
         size_t end_pos( 0 );
@@ -20,6 +60,10 @@ namespace scrapium {
 #else
         content = "Unsupported OS";
 #endif
+
+        // checking whether we are using unicode escapes
+        if ( unicode_shift )
+            content = deunicode_convert( content );
 
         while ( true ) {
             // searching for the starting character
@@ -68,6 +112,11 @@ namespace scrapium {
 #else
         content = "Not supported OS";
 #endif
+
+        // checking whether we are using unicode escapes
+        if ( unicode_shift )
+            content = deunicode_convert( content );
+
         std::istringstream iss( content );
         while ( iss >> token )
             content += token + " ";
