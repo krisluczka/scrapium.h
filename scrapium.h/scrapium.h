@@ -10,7 +10,7 @@
 #include <fstream>
 
 namespace scrapium {
-	extern bool unicode_shift;
+	extern bool unicode_escape;
 
 	enum print_type {
 		NONE,

@@ -136,7 +136,7 @@ int main() {
                     <p>
                         If we provide three arguments, the last two will be used as the start and the end.
                         Function <code>scrape()</code> will spit out everything that is stated between
-                        every of these two specified arguments. For example, previously given code will spit out this
+                        every of these two specified arguments. For example, previously given code will spit out this:
                     </p>
 <pre><code>{
     "0": "This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. ",
@@ -180,7 +180,12 @@ int main() {
                         <li><code>scrapium::print_type::PHP</code> - will display results in a PHP serialization format</li>
                         <li><code>scrapium::print_type::YAML</code> - will display results in a YAML format</li>
                     </ul>
-                    <p>The PHP format has an issue with counting up the true length of a string when it comes to non-ascii characters.</p>
+                    <h2>Mode</h2>
+                    <p>
+                        To ensure printing out correct results we can switch the <code>unicode_escape</code> flag, to convert unicode characters
+                        to their <code>\uXXXX</code> form.
+                    </p>
+<pre><code>scrapium::unicode_escape = true;</code></pre>
                     <h2>Saving results</h2>
                     <p>To save a file, simply provide a path as its second argument.</p>
 <pre><code>content.print( scrapium::print_type::JSON, "example/path.json" );</code></pre>

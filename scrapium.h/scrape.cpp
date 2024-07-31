@@ -1,7 +1,7 @@
 #include "scrapium.h"
 
 namespace scrapium {
-    bool unicode_shift = false;
+    bool unicode_escape = false;
 
     std::string deunicode( char32_t unicode_char ) {
         std::stringstream ss;
@@ -62,7 +62,7 @@ namespace scrapium {
 #endif
 
         // checking whether we are using unicode escapes
-        if ( unicode_shift )
+        if ( unicode_escape )
             content = deunicode_convert( content );
 
         while ( true ) {
@@ -114,7 +114,7 @@ namespace scrapium {
 #endif
 
         // checking whether we are using unicode escapes
-        if ( unicode_shift )
+        if ( unicode_escape )
             content = deunicode_convert( content );
 
         std::istringstream iss( content );
