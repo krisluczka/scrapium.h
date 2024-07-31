@@ -148,7 +148,7 @@ int main() {
                         their contents no matter theirs properties/attributes.
                     </p>
 <pre><code>scrapium::contents content = scrapium::scrape( "http://www.wierszespodtaboreta.pl/", "a" );</code></pre>
-                    <p>This will spit out after <code>content.print( scrapium::print_type::JSON )</code> function</p>
+                    <p>This will spit out after <code>content.print( scrapium::print_type::JSON )</code> function:</p>
 <pre><code>{
     "0": "&lt;div class="button"&gt; &lt;cite&gt;Taboret I&lt;/cite&gt;, Zbigniew Kaczmarek &lt;/div&gt;",
     "1": "&lt;div class="button"&gt; &lt;cite&gt;Parvum Opus&lt;/cite&gt;, Krzysztof Łuczka i Jakub Pinkowski &lt;/div&gt;",
@@ -158,13 +158,12 @@ int main() {
                     <p>Note that it will <b>not</b> capture standalone tags.</p>
                     <h2>Mode</h2>
                     <p>
-                        By providing <code>false</code> (by default it is false) as function's last parameter you use
+                        By providing <code>false</code> (by default) as function's last parameter you use
                         <code>scrape()</code> in normal mode. It will emulate a browser connection to download the
                         loaded site. By providing <code>true</code>, the function enters a fast mode. It uses
                         GET protocol to recieve info from the site, but the result is not always guaranteed.
                     </p>
                     <p>Note, that to use GET protocol (fast mode) you need to pass pure domain name (not in the URL form) and its path.</p>
-                    <p>Note, that the library does not emulate browsers like on Windows, thus they are always in fast mode. </p>
                     <ul>
                         <li><code>example.com</code> - pure domain name</li>
                         <li><code>https://www.example.com/</code> - URL form</li>
@@ -192,9 +191,16 @@ int main() {
                 </section>
                 <section id="development-plans">
                     <h1>Development plans</h1>
+                    <h2>scrapium.h ver 1</h2>
                     The list of features that are planned to be implemented until the full release of scrapium.h version 1:
                     <ul>
                         <li><code>scrape</code> should take HTML tags properties/attributes into account</li>
+                    </ul>
+                    <h2>scrapium.h ver 2</h2>
+                    The list of features that are planned to be implemented until the full release of scrapium.h version 2:
+                    <ul>
+                        <li>I/O methods to connect this program with any other application</li>
+                        <li>Linux support</li>
                     </ul>
                 </section>
                 <section id="contributors">
