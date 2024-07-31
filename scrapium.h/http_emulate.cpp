@@ -1,25 +1,10 @@
 #include "scrapium.h"
-
-#ifdef _WIN32
-
 #include <windows.h>
 #include <wininet.h>
 #pragma comment(lib, "wininet.lib")
 
-#elif defined(__linux__)
-#include <cstring>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <netdb.h> 
-
-#endif
-
 namespace scrapium {
 
-#ifdef _WIN32
     std::string http_emulate( const std::string& url ) {
         // session opening
         HINTERNET hInternet = InternetOpenA( "Mozilla/5.0", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0 );
@@ -55,13 +40,4 @@ namespace scrapium {
 
         return content;
     }
-#elif defined(__linux__)
-    std::string http_emulate( const std::string& url ) {
-        return http_get( url, "/" );
-    }
-#else
-    std::string http_emulate( const std::string& url ) {
-        return "Unsupported OS";
-    }
-#endif
 }

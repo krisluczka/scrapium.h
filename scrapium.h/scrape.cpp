@@ -49,17 +49,11 @@ namespace scrapium {
 
         // downloading the content
         std::string content;
-#ifdef _WIN32
+
         if ( fast )
             content = http_get( url, "/" );
         else
             content = http_emulate( url );
-#elif defined(__linux__)
-        // sorry linux
-        content = http_get( url, "/" );
-#else
-        content = "Unsupported OS";
-#endif
 
         // checking whether we are using unicode escapes
         if ( unicode_escape )
@@ -101,17 +95,11 @@ namespace scrapium {
 
         // downloading the content using GET
         std::string content, token;
-#ifdef _WIN32
+
         if ( fast )
             content = http_get( url, "/" );
         else
             content = http_emulate( url );
-#elif defined(__linux__)
-        // sorry linux
-        content = http_get( url, "/" );
-#else
-        content = "Not supported OS";
-#endif
 
         // checking whether we are using unicode escapes
         if ( unicode_escape )
